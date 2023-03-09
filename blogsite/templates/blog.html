@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Blog{% endblock title %}
+
+
+
+{% block blogactive %}active{% endblock blogactive %}
+
+{% block css %}
+<style>
+  hr
+  {
+    height:2px;
+    border-width:0;
+    color:gray;
+    background-color:gray;
+  }
+</style>
+{% endblock css %}
+
+{% block body %}
+
+
+<div class="container w-75">
+<h1 class="my-3">Welcome to the blogs</h1>
+    {% for blog in blogs %}
+    
+    <div class="my-4">
+        
+      <h5 class="mt-0"> <a class="text-dark text-decoration-none" href="/blogpost/{{ blog.slug }}"> {{ blog.title }}</a></h5>
+      <div class="my-4 ">
+          {{ blog.short_desc|slice:150 }}...
+        </div>
+        <div>
+          <a href="/blogpost/{{ blog.slug }}" class="text-dark"><button type="button" class="btn btn-sm btn-primary">Read More...</button></a>  
+        </div>
+      </div>
+     <hr>
+    
+    
+    {% endfor %}
+    <div class="my-3 w-75">
+      {% if prev %}
+      <button  type="button" class="btn btn-primary  btn-sm"> <a class="text-light" href="/blog?page={{prev}}">&laquo; Previous</a> </button>
+      {% else %}
+      <button  type="button" class="btn   btn-primary btn-sm"> <a class="text-light" href="#">&laquo; Previous</a> </button>
+      {% endif %}
+
+      {% if nxt %}
+      <button  type="button" class="btn btn-primary float-right btn-sm"> <a class="text-light" href="/blog?page={{nxt}}">Next &raquo;</a> </button>
+      {% else %}
+      <button  type="button" class="btn float-right  btn-primary btn-sm"> <a class="text-light" href="#">Next &raquo; </a> </button>
+      {% endif %}
+    </div>
+</div>
+
+
+{% endblock body %}
